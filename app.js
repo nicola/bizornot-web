@@ -86,16 +86,29 @@ app.get('/test', function(req, res) {
   function(err, response, body) {
     res.json(body);
   });
-})
+});
+
+app.get('/api/v1/receipts/:id', function(req, res) {
+
+  console.log("showing", req.params.id);
+
+  Receipt.findById(req.params.id).exec(function(err, receipt) {
+    if (err || !receipt) return res.json(500, {error:err, receipt: receipt});
+
+    res.json(receipt);
+
+  });
+
+});
 
 app.post('/api/v1/receipts/:id', function(req, res) {
 
   console.log("deleting", req.params.id);
 
-  Receipt.findOne(req.params.id).exec(function(err, receipt) {
+  Receipt.findById(req.params.id).exec(function(err, receipt) {
+    if (err || !receipt) return res.json(500, {error:err, receipt: receipt});
 
-
-    if (req.body.answer && receipt) {
+    if (req.body.answer) {
       request.post({
         url:'https://www.concursolutions.com/api/v3.0/expense/entries',
         json: true,
@@ -111,7 +124,7 @@ app.post('/api/v1/receipts/:id', function(req, res) {
       res.json({status:"OK"});
     }
 
-    if (receipt) receipt.remove();
+    receipt.remove();
 
   });
 
