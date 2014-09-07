@@ -4,8 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var request = require('request');
+
 
 var app = express();
+
+var Receipt = require('./models/receipt').model;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'dist'));
@@ -24,27 +28,83 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
-app.get('/concurTest', function(req, res) {
+app.get('/addSomeReceipts', function(req, res) {
 
-})
+  var receipt1 = new Receipt({
+    ReportID: "28F579E480AD4D89B6E6",
+    ExpenseTypeCode: "BRKFT",
+    PaymentTypeID: "nhR$p$py$p$sgJyq7J94gR9JakWJ5b7c",
+    TransactionCurrencyCode: "USD",
+    TransactionAmount: 120123,
+    TransactionDate: (new Date()).toISOString().slice(0,10).replace(/-/g,"-"),
+    VendorDescription: "Tea"
+  });
+  receipt1.save();
+
+
+  var receipt2 = new Receipt({
+    ReportID: "28F579E480AD4D89B6E6",
+    ExpenseTypeCode: "BRKFT",
+    PaymentTypeID: "nhR$p$py$p$sgJyq7J94gR9JakWJ5b7c",
+    TransactionCurrencyCode: "USD",
+    TransactionAmount: 120123,
+    TransactionDate: (new Date()).toISOString().slice(0,10).replace(/-/g,"-"),
+    VendorDescription: "Coffee"
+  });
+  receipt2.save();
+
+  res.json({status:"OK"});
+});
 
 app.get('/api/v1/receipts', function(req, res) {
 
-  res.json({
-    receipts: [
-      {name:"Coffee starbucks", id:"112", cost:"12", currency:"dollar"},
-      {name:"Tea starbucks", id:"112", cost:"12", currency:"dollar"}
-    ]
+  Receipt.find({}).exec(function(err, receipts) {
+    res.json({receipts:receipts});
   });
 
 });
 
-app.post('/api/v1/receipts/:id', function(req, res) {
-  res.json({
-    id: req.params.id,
-    status: "OK"
+app.get('/test', function(req, res) {
+  request.post({
+    url:'https://www.concursolutions.com/api/v3.0/expense/entries',
+    json: true,
+    headers: {
+        'Authorization': 'OAuth lhIICDzgMBQjFUP6Bfwf9jhfB7A='
+    },
+    ExpenseTypeCode: 'PBBLE',
+    body: {
+      _id: "bbbb",
+      ReportID: "28F579E480AD4D89B6E6",
+      ExpenseTypeCode: "BRKFT",
+      PaymentTypeID: "nhR$p$py$p$sgJyq7J94gR9JakWJ5b7c",
+      TransactionCurrencyCode: "USD",
+      TransactionAmount: 120123,
+      TransactionDate: (new Date()).toISOString().slice(0,10).replace(/-/g,"-"),
+      VendorDescription: "HEYA2"
+    }
+  },
+  function(err, response, body) {
+    res.json(body);
   });
 })
+
+app.post('/api/v1/receipts/:id', function(req, res) {
+
+  Receipt.findOne(req.params.id).exec(function(err, receipt) {
+    request.post({
+      url:'https://www.concursolutions.com/api/v3.0/expense/entries',
+      json: true,
+      headers: {
+          'Authorization': 'OAuth lhIICDzgMBQjFUP6Bfwf9jhfB7A='
+      },
+      body: receipt
+    },
+    function(err, response, body) {
+      res.json({status:"OK"});
+    });
+  });
+
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
