@@ -55,10 +55,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('connect', function() {
-  connect.server({
-    root: 'dist',
-    livereload: true
-  });
+  require('./bin/www');
 });
 
 gulp.task('clean_html', function(cb) {
