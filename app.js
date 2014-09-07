@@ -90,18 +90,27 @@ app.get('/test', function(req, res) {
 
 app.post('/api/v1/receipts/:id', function(req, res) {
 
+
   Receipt.findOne(req.params.id).exec(function(err, receipt) {
-    request.post({
-      url:'https://www.concursolutions.com/api/v3.0/expense/entries',
-      json: true,
-      headers: {
-          'Authorization': 'OAuth lhIICDzgMBQjFUP6Bfwf9jhfB7A='
+
+    if (req.body.answer) {
+      request.post({
+        url:'https://www.concursolutions.com/api/v3.0/expense/entries',
+        json: true,
+        headers: {
+            'Authorization': 'OAuth lhIICDzgMBQjFUP6Bfwf9jhfB7A='
+        },
+        body: receipt
       },
-      body: receipt
-    },
-    function(err, response, body) {
+      function(err, response, body) {
+        res.json({status:"OK"});
+      });
+    } else {
       res.json({status:"OK"});
-    });
+    }
+
+    receipt.remove();
+
   });
 
 });
