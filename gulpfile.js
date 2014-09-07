@@ -42,8 +42,12 @@ gulp.task('react', ['clean_react'], function () {
 });
 
 gulp.task('vendor', ['clean_vendor'], function() {
+
   gulp.src(mainBowerFiles())
     .pipe(gulp.dest('./dist/vendor'));
+
+  gulp.src('./bower_components/bootstrap/dist/css/bootstrap.min.css')
+      .pipe(gulp.dest('./dist/vendor'));
 });
 
 gulp.task('watch', function() {

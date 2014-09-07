@@ -1,6 +1,7 @@
 <html>
 <head>
   <title>HelloChat</title>
+  <link rel="stylesheet" type="text/css" href="./vendor/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="./styles/bizornot.css">
 
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -8,7 +9,27 @@
 
 </head>
 <body>
-  <div id="app"></div>
+
+  <div class="container">
+    <form role="form">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Check me out
+        </label>
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+
+<!--  <div id="app"></div>
 
   <script type="text/javascript" src="vendor/react.js"></script>
   <script type="text/javascript" src="jsx/bizornot.js"></script>
@@ -16,6 +37,6 @@
   document.addEventListener('DOMContentLoaded', function(){
     init();
   })
-  </script>
+  </script> -->
 </body>
 </html>
