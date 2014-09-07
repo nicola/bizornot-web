@@ -29,7 +29,16 @@ gulp.task('scripts', ['clean_scripts'], function () {
 gulp.task('html', ['clean_html'], function () {
   gulp.src('./src/index.html')
     .pipe(gulp.dest('./dist/'));
+
+  gulp.src('./src/receipts.html')
+    .pipe(gulp.dest('./dist/'));
 });
+
+gulp.task('images', ['clean_images'], function () {
+  gulp.src('./src/images/**/*')
+    .pipe(gulp.dest('./dist/images'));
+});
+
 gulp.task('cordova', function () {
   gulp.src('./dist/**/*')
     .pipe(gulp.dest('./app/www/dist'));
@@ -69,6 +78,10 @@ gulp.task('clean_scripts', function(cb) {
   del(['dist/js'], cb);
 });
 
+gulp.task('clean_images', function(cb) {
+  del(['dist/images'], cb);
+});
+
 gulp.task('clean_vendor', function(cb) {
   del(['dist/vendor'], cb);
 });
@@ -79,5 +92,5 @@ gulp.task('clean_react', function(cb) {
 
 gulp.task('clean', ['clean_react', 'clean_html', 'clean_scripts', 'clean_vendor']);
 
-gulp.task('default', ['watch', 'html', 'react', 'stylus', 'vendor', 'scripts', 'connect']);
+gulp.task('default', ['watch', 'html', 'react', 'stylus', 'images', 'vendor', 'scripts', 'connect']);
 gulp.task('app', ['watch']);

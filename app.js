@@ -28,6 +28,10 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
+app.get('/receipts', function(req, res) {
+  res.render('receipts');
+});
+
 app.get('/addSomeReceipts', function(req, res) {
 
   var receipt1 = new Receipt({
