@@ -1,0 +1,19 @@
+{
+  "name": "bn-web-app",
+  "version": "0.0.0",
+  "authors": [
+    "nicolagreco <me@nicola.io>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.11.1",
+    "parse-js-sdk": "~1.2.19"
+  }
+}
