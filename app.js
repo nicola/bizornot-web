@@ -39,6 +39,13 @@ app.get('/api/v1/receipts', function(req, res) {
 
 });
 
+app.post('/api/v1/receipts/:id', function(req, res) {
+  res.json({
+    id: req.params.id,
+    status: "OK"
+  });
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
