@@ -33,7 +33,7 @@ app.get('/api/v1/receipts', function(req, res) {
   res.json({
     receipts: [
       {name:"Coffee starbucks", id:"112", cost:"12", currency:"dollar"},
-      {name:"Coffee starbucks", id:"112", cost:"12", currency:"dollar"}
+      {name:"Tea starbucks", id:"112", cost:"12", currency:"dollar"}
     ]
   });
 
