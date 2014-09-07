@@ -32,6 +32,12 @@ gulp.task('html', ['clean_html'], function () {
 
   gulp.src('./src/receipts.html')
     .pipe(gulp.dest('./dist/'));
+
+  gulp.src('./src/button.html')
+    .pipe(gulp.dest('./dist/'));
+
+  gulp.src('./src/paid.html')
+    .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('images', ['clean_images'], function () {

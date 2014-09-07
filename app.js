@@ -32,6 +32,38 @@ app.get('/receipts', function(req, res) {
   res.render('receipts');
 });
 
+app.get('/button', function(req, res) {
+  res.render('button');
+});
+
+app.get('/paid', function(req, res) {
+
+  var receipt1 = new Receipt({
+    ReportID: "28F579E480AD4D89B6E6",
+    ExpenseTypeCode: "BRKFT",
+    PaymentTypeID: "nhR$p$py$p$sgJyq7J94gR9JakWJ5b7c",
+    TransactionCurrencyCode: "USD",
+    TransactionAmount: 120123,
+    TransactionDate: (new Date()).toISOString().slice(0,10).replace(/-/g,"-"),
+    VendorDescription: "Tea"
+  });
+  receipt1.save();
+
+
+  var receipt2 = new Receipt({
+    ReportID: "28F579E480AD4D89B6E6",
+    ExpenseTypeCode: "BRKFT",
+    PaymentTypeID: "nhR$p$py$p$sgJyq7J94gR9JakWJ5b7c",
+    TransactionCurrencyCode: "USD",
+    TransactionAmount: 120123,
+    TransactionDate: (new Date()).toISOString().slice(0,10).replace(/-/g,"-"),
+    VendorDescription: "Coffee"
+  });
+  receipt2.save();
+
+  res.render('paid');
+});
+
 app.get('/addSomeReceipts', function(req, res) {
 
   var receipt1 = new Receipt({
