@@ -55,7 +55,6 @@ gulp.task('watch', function() {
   gulp.watch(paths.react, ['react']);
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.stylus, ['stylus']);
-  gulp.watch(paths.dist, ['cordova']);
 });
 
 gulp.task('connect', function() {

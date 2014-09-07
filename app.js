@@ -9,6 +9,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'dist'));
+app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
@@ -22,6 +23,10 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.get('/', function(req, res) {
   res.render('index');
 });
+
+app.get('/concurTest', function(req, res) {
+
+})
 
 app.get('/api/v1/receipts', function(req, res) {
 
