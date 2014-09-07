@@ -93,6 +93,8 @@ app.post('/api/v1/receipts/:id', function(req, res) {
 
   Receipt.findOne(req.params.id).exec(function(err, receipt) {
 
+    console.log("deleting", receipt.VendorDescription);
+
     if (req.body.answer) {
       request.post({
         url:'https://www.concursolutions.com/api/v3.0/expense/entries',
