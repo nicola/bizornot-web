@@ -90,6 +90,7 @@ app.get('/test', function(req, res) {
 
 app.post('/api/v1/receipts/:id', function(req, res) {
 
+  console.log("deleting", req.params.id);
 
   Receipt.findOne(req.params.id).exec(function(err, receipt) {
 
