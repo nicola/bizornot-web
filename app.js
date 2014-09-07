@@ -109,7 +109,7 @@ app.post('/api/v1/receipts/:id', function(req, res) {
       res.json({status:"OK"});
     }
 
-    receipt.remove();
+    if (receipt) receipt.remove();
 
   });
 
